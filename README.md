@@ -18,7 +18,7 @@ npm install
 ```
 
 
-### 3. Prisma Migrate
+### 2. Prisma Migrate
 
 [Prisma Migrate](https://github.com/prisma/prisma2/tree/master/docs/prisma-migrate) is used to manage the schema and migration of the database. Prisma datasource requires an environment variable `DATABASE_URL` for the connection to the PostgreSQL database. Prisma reads the `DATABASE_URL` from the root [.env](./.env) file.
 
@@ -50,7 +50,7 @@ npx prisma migrate deploy
 npm run migrate:deploy
 ```
 
-### 4. Prisma: Prisma Client JS
+### 3. Prisma: Prisma Client JS
 
 [Prisma Client JS](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/api) is a type-safe database client auto-generated based on the data model.
 
@@ -64,15 +64,7 @@ npx prisma generate
 npm run prisma:generate
 ```
 
-### 5. Seed the database data with this script
-
-Execute the script with this command:
-
-```bash
-npm run seed
-```
-
-### 6. Start NestJS Server
+### 4. Start NestJS Server
 
 Run Nest Server in Development mode:
 
