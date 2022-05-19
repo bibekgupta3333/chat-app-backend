@@ -1,0 +1,140 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Auth {
+  """JWT access token"""
+  accessToken: JWT!
+
+  """JWT refresh token"""
+  refreshToken: JWT!
+  user: User!
+}
+
+input ChangePasswordInput {
+  newPassword: String!
+  oldPassword: String!
+}
+
+type Chat {
+  """Identifies the date and time when the object was created."""
+  createdAt: DateTime!
+  id: ID!
+  messages: [Message!]
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: DateTime!
+  users: [User!]!
+}
+
+type ChatDeleteReturnType {
+  """Identifies the date and time when the object was created."""
+  createdAt: DateTime!
+  id: ID!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: DateTime!
+}
+
+input CreateChatInput {
+  messages: [String!]
+  users: [String!]!
+}
+
+input CreateMessageInput {
+  chatId: String
+  content: String!
+  userId: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""
+A field whose value is a JSON Web Token (JWT): https://jwt.io/introduction.
+"""
+scalar JWT
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Message {
+  chat: Chat!
+  content: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: DateTime!
+  id: ID!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: DateTime!
+  user: User!
+}
+
+type Mutation {
+  changePassword(data: ChangePasswordInput!): User!
+  createChat(createChatInput: CreateChatInput!): Chat!
+  createMessage(createMessageInput: CreateMessageInput!): Message!
+  deleteChat(id: String!): ChatDeleteReturnType!
+  login(data: LoginInput!): Auth!
+  refreshToken(token: JWT!): Token!
+  signup(data: SignupInput!): Auth!
+  updateUser(data: UpdateUserInput!): User!
+}
+
+type PaginatedMessage {
+  """Identifies the date and time when the object was created."""
+  createdAt: DateTime!
+  id: ID!
+  messages: [Message!]!
+  meta: PaginatedMetaInfo!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: DateTime!
+}
+
+type PaginatedMetaInfo {
+  hasNextPage: Boolean!
+  remainingCount: Int!
+  totalCount: Int!
+}
+
+type Query {
+  findAllMessageByChatId(chatId: String!, skip: Int!, take: Int!): PaginatedMessage!
+  findChatById(id: String!): Chat!
+  findChatsByUserId(userId: String!): [Chat!]!
+  getUsers(keyword: String!): [User!]!
+  me: User!
+}
+
+input SignupInput {
+  email: String!
+  password: String!
+}
+
+type Token {
+  """JWT access token"""
+  accessToken: JWT!
+
+  """JWT refresh token"""
+  refreshToken: JWT!
+}
+
+input UpdateUserInput {
+  isOnline: Boolean
+}
+
+type User {
+  """Identifies the date and time when the object was created."""
+  createdAt: DateTime!
+  email: String!
+  id: ID!
+  isOnline: Boolean
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: DateTime!
+}

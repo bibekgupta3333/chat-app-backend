@@ -1,0 +1,42 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions", "fullTextSearch", "referentialIntegrity"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// users
+model User {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  email     String    @unique
+  password  String
+  isOnline  Boolean   @default(false)
+  chats     Chat[]
+  messages  Message[]
+}
+
+// chat
+model Chat {
+  id        String    @id @default(cuid())
+  users     User[]
+  messages  Message[]
+  updatedAt DateTime  @updatedAt
+  createdAt DateTime  @default(now())
+}
+
+// message
+model Message {
+  id        String   @id @default(cuid())
+  content   String
+  chatId    String
+  userId    String
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  chat      Chat     @relation(fields: [chatId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}
