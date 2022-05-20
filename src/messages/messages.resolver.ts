@@ -63,6 +63,13 @@ export class MessagesResolver {
     const count = await this.messagesService.count(chatId);
     take = take ?? 0;
     skip = skip ?? 0;
+
+    // fixing the overflow of take and skip
+    const remain = count - (take + skip) < 0 ? 0 : count - (take + skip);
+    if (take > count) {
+      take = take - remain;
+    }
+
     return {
       messages: await this.messagesService.findAllMessagesByChatId(
         chatId,
@@ -72,7 +79,7 @@ export class MessagesResolver {
       meta: {
         totalCount: count,
         hasNextPage: count > take + skip,
-        remainingCount: count % (take + skip),
+        remainingCount: remain,
       },
     };
   }
