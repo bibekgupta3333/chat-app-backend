@@ -21,7 +21,7 @@ export class MessagesResolver {
   @Mutation(() => Message, { name: 'createMessage' })
   async createMessage(
     @UserEntity() user: User,
-    @Args('createMessageInput') createMessageInput: CreateMessageInput
+    @Args('createMessageInput') createMessageInput: CreateMessageInput,
   ) {
     createMessageInput.userId = user.id;
     return this.messagesService.create(createMessageInput);
@@ -33,21 +33,28 @@ export class MessagesResolver {
   async findAllByChatId(
     @Args('chatId') chatId: string,
     @Args('take') take?: number,
-    @Args('skip') skip?: number
+    @Args('skip') skip?: number,
   ) {
     const count = await this.messagesService.count(chatId);
     take = take ?? 0;
     skip = skip ?? 0;
+
+    // fixing the overflow of take and skip
+    const remain = count - (take + skip) < 0 ? 0 : count - (take + skip);
+    if (take > count) {
+      take = take - remain;
+    }
+
     return {
       messages: await this.messagesService.findAllMessagesByChatId(
         chatId,
         take,
-        skip
+        skip,
       ),
       meta: {
         totalCount: count,
         hasNextPage: count > take + skip,
-        remainingCount: count % (take + skip),
+        remainingCount: remain,
       },
     };
   }
