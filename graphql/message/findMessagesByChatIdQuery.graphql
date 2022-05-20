@@ -1,0 +1,20 @@
+query findMessagesByChatId($chatId: String!, $skip: Int!, $take: Int!) {
+  findAllMessageByChatId(chatId: $chatId, skip: $skip, take: $take) {
+    messages {
+      id
+      chat {
+        id
+      }
+      content
+      user {
+        id
+        isOnline
+      }
+    }
+    meta {
+      totalCount
+      hasNextPage
+      remainingCount
+    }
+  }
+}

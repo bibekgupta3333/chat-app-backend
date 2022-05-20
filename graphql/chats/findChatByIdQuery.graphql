@@ -1,0 +1,10 @@
+query findChatById($id: String!) {
+  findChatById(id: $id) {
+    id
+    users {
+      id
+      isOnline
+      email
+    }
+  }
+}
