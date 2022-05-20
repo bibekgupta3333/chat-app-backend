@@ -1,0 +1,9 @@
+mutation createChat($createChatInput: CreateChatInput!) {
+  createChat(createChatInput: $createChatInput) {
+    users {
+      id
+      isOnline
+      email
+    }
+  }
+}

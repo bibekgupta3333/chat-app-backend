@@ -1,0 +1,14 @@
+mutation createMessage($createMessageInput: CreateMessageInput!) {
+  createMessage(createMessageInput: $createMessageInput) {
+    chat {
+      id
+    }
+    user {
+      id
+      isOnline
+    }
+    content
+    createdAt
+    updatedAt
+  }
+}
