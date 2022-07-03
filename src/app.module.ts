@@ -19,6 +19,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { ChatsModule } from './chats/chats.module';
 import { UsersModule } from 'src/users/users.module';
 import { MessagesModule } from './messages/messages.module';
+import { PubsubModule } from './pubsub/pubsub.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, load: [config] }),
@@ -37,6 +38,7 @@ import { MessagesModule } from './messages/messages.module';
     UsersModule,
     ChatsModule,
     MessagesModule,
+    PubsubModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],

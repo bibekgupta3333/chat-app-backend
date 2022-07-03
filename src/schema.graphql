@@ -63,8 +63,8 @@ input LoginInput {
 }
 
 type Message {
-  chat: Chat!
-  content: String!
+  chat: Chat
+  content: String
 
   """Identifies the date and time when the object was created."""
   createdAt: DateTime!
@@ -72,7 +72,7 @@ type Message {
 
   """Identifies the date and time when the object was last updated."""
   updatedAt: DateTime!
-  user: User!
+  user: User
 }
 
 type Mutation {
@@ -114,6 +114,14 @@ type Query {
 input SignupInput {
   email: String!
   password: String!
+}
+
+type Subscription {
+  subscribeNewMessage: SubscriptionMessage!
+}
+
+type SubscriptionMessage {
+  message: Message
 }
 
 type Token {

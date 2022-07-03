@@ -26,6 +26,10 @@ const config: Config = {
     refreshIn: '30d',
     bcryptSaltOrRound: 10,
   },
+  redis: {
+    REDIS_HOST: process.env.REDIS_HOST || 'localhost',
+    REDIS_PORT: Number(process.env.REDIS_PORT || 0),
+  },
 };
 
 export default (): Config => config;
